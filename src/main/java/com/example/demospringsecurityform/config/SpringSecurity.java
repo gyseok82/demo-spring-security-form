@@ -1,5 +1,7 @@
 package com.example.demospringsecurityform.config;
 
+import com.example.demospringsecurityform.account.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,10 +12,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SpringSecurity extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    AccountService accountService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .mvcMatchers("/", "/info").permitAll()
+                .mvcMatchers("/", "/info", "/account/**").permitAll()
                 .mvcMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
@@ -22,10 +27,4 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
             .httpBasic();
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("gyseok").password("{noop}123").roles("ADMIN").and()
-                .withUser("admin").password("{noop}!@#").roles("ADMIN");
-    }
 }
