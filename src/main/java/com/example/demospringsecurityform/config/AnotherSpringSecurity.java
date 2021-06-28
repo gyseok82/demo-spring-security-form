@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @Configuration
-@Order(Ordered.LOWEST_PRECEDENCE - 15)
+@Order(Ordered.LOWEST_PRECEDENCE - 100)
 public class AnotherSpringSecurity extends WebSecurityConfigurerAdapter {
 
     @Autowired
