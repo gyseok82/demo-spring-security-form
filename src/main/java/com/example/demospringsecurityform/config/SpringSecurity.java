@@ -51,13 +51,14 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
         http
                 .antMatcher("/**")
                 .authorizeRequests()
-                .mvcMatchers("/", "/info", "/account/**").permitAll()
+                .mvcMatchers("/", "/info", "/account/**", "/signup").permitAll()
                 .mvcMatchers("/admin").hasRole("ADMIN")
                 .mvcMatchers("/user").hasRole("USER")
                 .anyRequest().authenticated()
                 .expressionHandler(expressionHandler());
         http.formLogin();
         http.httpBasic();
+        //  http.csrf().disable();
 
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
     }
