@@ -56,9 +56,14 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/user").hasRole("USER")
                 .anyRequest().authenticated()
                 .expressionHandler(expressionHandler());
-        http.formLogin();
+        http.formLogin()
+            .loginPage("/login")
+            .permitAll();
+
         http.httpBasic();
         //  http.csrf().disable();
+
+        http.logout().logoutSuccessUrl("/");
 
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
     }
