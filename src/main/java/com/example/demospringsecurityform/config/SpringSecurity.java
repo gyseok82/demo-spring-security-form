@@ -70,6 +70,10 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
         http.httpBasic();
         //  http.csrf().disable();
 
+        http.rememberMe()
+                .userDetailsService(accountService)
+                .key("remember-me-sample");
+
         http.logout().logoutSuccessUrl("/");
 
         // TODO ExceptionTranslatorFilter -> FilterSecurityInterceptor (AccessDecisionManager, AffirmationBased)
